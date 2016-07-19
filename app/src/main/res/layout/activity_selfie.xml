@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.example.migrenus.flirtapp.SelfieActivity"
+    android:id="@+id/mainLayout">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_selfie"
+        android:id="@+id/selfieButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/bottom_button_margin_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/bottom_button_margin_top" />
+</RelativeLayout>
