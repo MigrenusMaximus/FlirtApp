@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=E1:79:5B:41:CA:6C:52:E8:06:5D:CB:4D:CF:70:15:40:49:5C:15:04%3Bcom.example.migrenus.flirtapp
+
+    You can also add your credentials to an existing key, using this line:
+    E1:79:5B:41:CA:6C:52:E8:06:5D:CB:4D:CF:70:15:40:49:5C:15:04;com.example.migrenus.flirtapp
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyDno48GdzMu5mM6NXOVjT4DypNmBV2QnKA
+    </string>
+</resources>

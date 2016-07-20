@@ -8,4 +8,6 @@
     <string name="button_view_women">Women currently logged in</string>
     <string name="button_view_men">Men currently logged in</string>
     <string name="button_view_new_users">Logged in since last visit</string>
+    <string name="button_match">Match</string>
+    <string name="title_activity_map">Map</string>
 </resources>

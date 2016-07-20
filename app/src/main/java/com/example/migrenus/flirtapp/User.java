@@ -1,7 +1,12 @@
 package com.example.migrenus.flirtapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.AsyncTask;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.List;
 public class User {
     private String phoneNumber;
     private Gender gender;
+    private Image photo;
     private String photoUri;
     private List<User> likedUsers;
     private List<User> usersLikedBy;
@@ -68,7 +74,7 @@ public class User {
     }
 
     public String getPhotoUri() {
-        return "www.home.arcor.de/pal.heredi/Smiley Face_kleiner.jpg";
+        return "http://home.arcor.de/pal.heredi/Smiley%20Face_kleiner.jpg";
     }
 
     public void setPhotoUri(String photoUri) {

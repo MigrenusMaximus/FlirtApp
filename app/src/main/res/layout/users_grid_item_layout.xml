@@ -10,7 +10,8 @@
         android:maxHeight="@dimen/match_image_max_height"
         android:maxWidth="@dimen/match_image_max_width"
         android:layout_margin="@dimen/match_image_margin"
-        android:layout_gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="" >
     </ImageView>
 
 
