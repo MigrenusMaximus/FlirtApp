@@ -27,17 +27,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RegistrationActivity" />
-        <activity
-            android:name=".SelfieActivity"
-            android:theme="@style/FullscreenTheme"></activity>
-        <activity android:name=".ViewSelectionActivity">
+        <activity android:name=".SelfieActivity" android:theme="@style/FullscreenTheme" />
+        <activity android:name=".ViewSelectionActivity" />
+        <activity android:name=".ViewUsersActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewUsersActivity"></activity>
     </application>
 
 </manifest>

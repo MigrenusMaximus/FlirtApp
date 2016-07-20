@@ -15,7 +15,6 @@ import java.util.List;
 public class User {
     private String phoneNumber;
     private Gender gender;
-    private Image photo;
     private String photoUri;
     private List<User> likedUsers;
     private List<User> usersLikedBy;
@@ -32,7 +31,6 @@ public class User {
         this.photoUri = photoUri;
         this.likedUsers = likedUsers;
         this.usersLikedBy = usersLikedBy;
-        this.photo = getPhotoFromUri(this.photoUri);
     }
 
     // This constructor is mostly used for generating
@@ -52,11 +50,6 @@ public class User {
         this.usersLikedBy = new ArrayList<>();
     }
 
-    // TODO: Implement photo retrieval
-    private Image getPhotoFromUri(String photoUri) {
-        return null;
-    }
-
     // Getters and setters
     public String getPhoneNumber() {
         return phoneNumber;
@@ -74,16 +67,8 @@ public class User {
         this.gender = gender;
     }
 
-    public Image getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Image photo) {
-        this.photo = photo;
-    }
-
     public String getPhotoUri() {
-        return photoUri;
+        return "www.home.arcor.de/pal.heredi/Smiley Face_kleiner.jpg";
     }
 
     public void setPhotoUri(String photoUri) {
