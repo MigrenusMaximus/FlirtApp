@@ -6,5 +6,5 @@ package com.example.migrenus.flirtapp;
  * Enumerates genders.
  */
 public enum Gender {
-    Male, Female
+    Male, Female, None
 }

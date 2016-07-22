@@ -1,14 +1,10 @@
 package com.example.migrenus.flirtapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.Image;
-import android.os.AsyncTask;
 
-import java.io.InputStream;
-import java.net.URL;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -17,14 +13,14 @@ import java.util.List;
  * All data relating to a single user should
  * be stored within an instance of this object.
  */
-public class User {
+public class User implements Serializable {
     private String phoneNumber;
     private Gender gender;
     private Image photo;
     private String photoUri;
     private List<User> likedUsers;
     private List<User> usersLikedBy;
-    private Date lastLogin;
+    private int lastLogin;
 
     // This constructor is mostly used for initializing
     // other users, since their likes will be known beforehand
@@ -37,6 +33,7 @@ public class User {
         this.photoUri = photoUri;
         this.likedUsers = likedUsers;
         this.usersLikedBy = usersLikedBy;
+        this.lastLogin = Calendar.getInstance().get(Calendar.SECOND);
     }
 
     // This constructor is mostly used for generating
@@ -47,6 +44,7 @@ public class User {
 
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+        this.lastLogin = Calendar.getInstance().get(Calendar.SECOND);
     }
 
     // Empty constructor only does list initialization
@@ -74,7 +72,11 @@ public class User {
     }
 
     public String getPhotoUri() {
-        return "http://home.arcor.de/pal.heredi/Smiley%20Face_kleiner.jpg";
+        return (photoUri == null) ?
+                ((gender == Gender.Male) ?
+                        "http://home.arcor.de/pal.heredi/Smiley%20Face_kleiner.jpg" :
+                        "http://images.clipartpanda.com/blue-smiley-face-png-4c9Mz7ncE.gif") :
+                photoUri;
     }
 
     public void setPhotoUri(String photoUri) {
@@ -95,5 +97,9 @@ public class User {
 
     public void setUsersLikedBy(List<User> usersLikedBy) {
         this.usersLikedBy = usersLikedBy;
+    }
+
+    public int getLastLogin() {
+        return lastLogin;
     }
 }

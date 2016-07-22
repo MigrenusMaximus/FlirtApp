@@ -1,5 +1,6 @@
 package com.example.migrenus.flirtapp;
 
+import android.content.Intent;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,26 +9,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by Migrenus on 7/18/2016.
+ *
+ * Here the user takes their photo
+ * before proceeding to match selection
  */
 public class SelfieActivity extends AppCompatActivity {
     // used for logging and debugging
     private static String classLogTag = "SelfieActivity";
     // holds a reference to our camera
-    private static Camera camera = null;
+    private Camera camera = null;
     // used for storing the current camera id
-    // for some reason you can't find out the id of the current camera
-    private static int cameraId = -1;
+    // for some reason you can't find out the
+    // id of the current camera programmatically
+    private int cameraId = -1;
+
+    private CameraPreview cameraPreview;
     // callback for taking pictures
     private Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
 
@@ -50,14 +57,6 @@ public class SelfieActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.d(classLogTag, "Unknown error while saving photo: " + e.getMessage());
             }
-
-            // we need to restart the preview manually, since it stops
-            // after taking a photo
-            try {
-                camera.startPreview();
-            } catch (Exception e) {
-                Log.d(classLogTag, "Error while starting preview from onPictureTaken: " + e.getMessage());
-            }
         }
     };
 
@@ -67,6 +66,14 @@ public class SelfieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selfie);
 
         final Button selfieButton = (Button) findViewById(R.id.selfieButton);
+        final Button yesButton    = (Button) findViewById(R.id.yesButton);
+        final Button noButton     = (Button) findViewById(R.id.noButton);
+        final LinearLayout confirmationLinearLayout = (LinearLayout) findViewById(R.id.confirmationLinearLayout);
+        final TextView confirmationText = (TextView) findViewById(R.id.confirmationTextView);
+
+        resetButtons(false);
+
+        assert selfieButton != null;
         selfieButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,8 +82,77 @@ public class SelfieActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.d(classLogTag, "Error while taking picture: " + e.getMessage());
                 }
+
+                resetButtons(true);
             }
         });
+
+        assert noButton != null;
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetButtons(false);
+
+                // we need to restart the preview manually, since it stops
+                // after taking a photo
+                try {
+                    camera.startPreview();
+                } catch (Exception e) {
+                    Log.d(classLogTag, "Error while starting preview from onPictureTaken: " + e.getMessage());
+                }
+            }
+        });
+
+        assert yesButton != null;
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetButtons(false);
+
+                Intent intent = new Intent(SelfieActivity.this, ViewSelectionActivity.class);
+                intent.putExtras(getIntent());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void resetButtons(boolean pictureTaken) {
+        final Button selfieButton = (Button) findViewById(R.id.selfieButton);
+        final LinearLayout confirmationLinearLayout = (LinearLayout) findViewById(R.id.confirmationLinearLayout);
+        final TextView confirmationText = (TextView) findViewById(R.id.confirmationTextView);
+
+        confirmationLinearLayout.bringToFront();
+        confirmationText.bringToFront();
+        selfieButton.bringToFront();
+
+        if (pictureTaken) {
+            selfieButton.setVisibility(View.INVISIBLE);
+            selfieButton.setEnabled(false);
+
+            confirmationLinearLayout.setVisibility(View.VISIBLE);
+            confirmationLinearLayout.setEnabled(true);
+
+            confirmationText.setVisibility(View.VISIBLE);
+            confirmationText.setEnabled(true);
+        } else {
+            selfieButton.setVisibility(View.VISIBLE);
+            selfieButton.setEnabled(true);
+
+            confirmationLinearLayout.setVisibility(View.INVISIBLE);
+            confirmationLinearLayout.setEnabled(false);
+
+            confirmationText.setVisibility(View.INVISIBLE);
+            confirmationText.setEnabled(false);
+        }
+    }
+
+    private void resetCameraPreview() {
+        cameraPreview = new CameraPreview(this, camera);
+
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        mainLayout.addView(cameraPreview);
+
+        resetButtons(false);
     }
 
     @Override
@@ -87,8 +163,9 @@ public class SelfieActivity extends AppCompatActivity {
             camera = null;
             cameraId = -1;
         }
+        //cameraPreview.
     }
-    /*
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -98,7 +175,6 @@ public class SelfieActivity extends AppCompatActivity {
             cameraId = -1;
         }
     }
-    */
 
     @Override
     protected void onResume() {
@@ -108,12 +184,7 @@ public class SelfieActivity extends AppCompatActivity {
         if (camera == null)
             Log.d(classLogTag, "Unable to open camera in onStart.");
 
-        CameraPreview cameraSurfaceView = new CameraPreview(this, camera);
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-        mainLayout.addView(cameraSurfaceView);
-
-        Button selfieButton = (Button) findViewById(R.id.selfieButton);
-        selfieButton.bringToFront();
+        resetCameraPreview();
     }
 
     @Override
@@ -124,18 +195,13 @@ public class SelfieActivity extends AppCompatActivity {
         if (camera == null)
             Log.d(classLogTag, "Unable to open camera in onStart.");
 
-        CameraPreview cameraSurfaceView = new CameraPreview(this, camera);
-        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
-        mainLayout.addView(cameraSurfaceView);
-
-        Button selfieButton = (Button) findViewById(R.id.selfieButton);
-        selfieButton.bringToFront();
+        resetCameraPreview();
     }
 
     // returns an instance of the Camera object
     // favors the front-facing camera
     private Camera getCameraInstance() {
-        Camera camera = null;
+        Camera camera;
 
         // we first try to open the front-facing camera and
         // if that doesn't work, we try opening the rear camera
@@ -158,12 +224,12 @@ public class SelfieActivity extends AppCompatActivity {
     }
 
     // create a file uri for saving an image or video
-    private static Uri getOutputMediaFileUri(){
+    private Uri getOutputMediaFileUri(){
         return Uri.fromFile(getOutputMediaFile());
     }
 
     // create a file for saving an image or video
-    private static File getOutputMediaFile(){
+    private File getOutputMediaFile(){
         // to be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
 
@@ -181,8 +247,8 @@ public class SelfieActivity extends AppCompatActivity {
         }
 
         // create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "IMG_"+ timeStamp + ".jpg");
+        // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator + "selfie.jpg");
 
         return mediaFile;
     }

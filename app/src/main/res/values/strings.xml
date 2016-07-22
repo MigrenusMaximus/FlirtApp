@@ -10,4 +10,7 @@
     <string name="button_view_new_users">Logged in since last visit</string>
     <string name="button_match">Match</string>
     <string name="title_activity_map">Map</string>
+    <string name="text_selfie_confirmation">Do you want to use this image?</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
 </resources>
