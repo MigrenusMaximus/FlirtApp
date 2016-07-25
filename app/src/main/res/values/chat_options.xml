@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="chat_options">
+        <item>Hi</item>
+        <item>Bye</item>
+        <item>Sup?</item>
+        <item>This is a longer chat option to see what happens to the text</item>
+    </string-array>
+</resources>

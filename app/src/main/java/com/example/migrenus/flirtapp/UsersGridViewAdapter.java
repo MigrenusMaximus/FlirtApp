@@ -86,7 +86,6 @@ public class UsersGridViewAdapter extends BaseAdapter {
                     if (currImage != null)
                         imageView.setImageBitmap(currImage);
                 }
-
             }.execute();
         } else {
             matchGridView = convertView;

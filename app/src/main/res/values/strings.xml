@@ -13,4 +13,12 @@
     <string name="text_selfie_confirmation">Do you want to use this image?</string>
     <string name="button_yes">Yes</string>
     <string name="button_no">No</string>
+    <string name="button_view_matches">View matches</string>
+    <string name="button_review_matches">Review matches</string>
+    <string name="currently_matching_text">You are being matched...</string>
+    <string name="matched_text">You have been matched</string>
+    <string name="no_matches_text">Check back later</string>
+
+    <!-- Development strings -->
+    <string name="dev_potential_ad_space">Potential ad space</string>
 </resources>

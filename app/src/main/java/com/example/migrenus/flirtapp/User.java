@@ -54,6 +54,12 @@ public class User implements Serializable {
         this.usersLikedBy = new ArrayList<>();
     }
 
+    public List<User> getMatches() {
+        // TODO: Implement matching
+        // currently we return all of the liked users
+        return likedUsers;
+    }
+
     // Getters and setters
     public String getPhoneNumber() {
         return phoneNumber;
@@ -92,6 +98,7 @@ public class User implements Serializable {
     }
 
     public List<User> getUsersLikedBy() {
+        // TODO: Implement remote retrieval and local caching
         return usersLikedBy;
     }
 

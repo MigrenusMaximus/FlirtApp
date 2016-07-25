@@ -27,7 +27,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistrationActivity" >
+        <activity android:name=".RegistrationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,9 +38,7 @@
             android:name=".SelfieActivity"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".ViewSelectionActivity" />
-        <activity android:name=".ViewUsersActivity">
-
-        </activity>
+        <activity android:name=".ViewUsersActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -53,9 +51,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".MapActivity">
-        </activity>
+        <activity android:name=".MapActivity" />
+        <activity android:name=".MatchingActivity" />
+        <activity android:name=".MatchedUsersActivity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

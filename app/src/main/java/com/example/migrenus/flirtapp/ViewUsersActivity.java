@@ -1,12 +1,10 @@
 package com.example.migrenus.flirtapp;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +20,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ViewUsersActivity extends AppCompatActivity {
+    private static String classLogTag = "ViewUsersActivity";
+
     private User mUser;
     private List<User> mUsers;
     private List<User> mLikedUsers;
@@ -33,7 +33,7 @@ public class ViewUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_users);
 
         Intent intent = getIntent();
-        Place place = (Place) intent.getSerializableExtra("place_info");
+        final Place place = (Place) intent.getSerializableExtra("place_info");
         place.retrieveUsersForLocation();
 
         mLikedUsers = new ArrayList<>();
@@ -65,12 +65,12 @@ public class ViewUsersActivity extends AppCompatActivity {
 
                 if (imageView.getColorFilter() == mSelectionHighlight) {
                     imageView.clearColorFilter();
-                    if (!mLikedUsers.contains(mUsers.get(position)))
-                        mLikedUsers.add(mUsers.get(position));
-                } else {
-                    imageView.setColorFilter(mSelectionHighlight);
                     if (mLikedUsers.contains(mUsers.get(position)))
                         mLikedUsers.remove(mUsers.get(position));
+                } else {
+                    imageView.setColorFilter(mSelectionHighlight);
+                    if (!mLikedUsers.contains(mUsers.get(position)))
+                        mLikedUsers.add(mUsers.get(position));
                 }
             }
         });
@@ -80,8 +80,14 @@ public class ViewUsersActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mUser.setLikedUsers(mLikedUsers);
 
-                Intent newIntent = new Intent(ViewUsersActivity.this, ViewSelectionActivity.class);
-                newIntent.putExtras(getIntent());
+                for (int i = 0; i < mLikedUsers.size(); i++) {
+                    Log.d(classLogTag, "" + mLikedUsers.get(i).hashCode());
+                    Log.d(classLogTag, "" + mUser.getLikedUsers().get(i).hashCode());
+                }
+
+                Intent newIntent = new Intent(ViewUsersActivity.this, MatchingActivity.class);
+                newIntent.putExtra("place_info", place);
+                //newIntent.putExtras(getIntent());
                 newIntent.putExtra("user", mUser);
                 startActivity(newIntent);
             }

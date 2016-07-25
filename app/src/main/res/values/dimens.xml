@@ -8,4 +8,6 @@
     <dimen name="match_image_max_height">96dp</dimen>
     <dimen name="match_image_max_width">96dp</dimen>
     <dimen name="match_image_margin">0dp</dimen>
+    <dimen name="chat_image_max_height">196dp</dimen>
+    <dimen name="chat_image_max_width">196dp</dimen>
 </resources>
